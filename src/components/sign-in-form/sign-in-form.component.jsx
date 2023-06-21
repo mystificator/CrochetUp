@@ -25,8 +25,7 @@ const SignInForm = () => {
   };
 
   const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   };
 
   const handleSubmit = async (event) => {
@@ -34,14 +33,15 @@ const SignInForm = () => {
 
     signInAuthUserWithEmailAndPassword(email, password)
       .then((res) => {
-        console.log(res);
+        // setCurrentUser(res.user);
+
         resetFormFields();
       })
       .catch((err) => {
         if (err.code == "auth/wrong-password")
           alert("Incorrect email or password");
         else if (err.code == "auth/user-not-found")
-          alert("No user associated with this email")
+          alert("No user associated with this email");
         console.log(err);
       });
   };
